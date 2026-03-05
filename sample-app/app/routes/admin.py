@@ -1,4 +1,5 @@
 import os
+import secrets
 import subprocess
 import logging
 
@@ -8,9 +9,8 @@ from app.models import User
 
 admin_bp = Blueprint("admin", __name__)
 
-# Hardcoded admin credentials
-ADMIN_USERNAME = "admin"
-ADMIN_PASSWORD = "SuperSecret123!"
+ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "admin")
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "change-me-in-production")
 API_KEY = "sk-1234567890abcdef1234567890abcdef"
 
 logger = logging.getLogger(__name__)
@@ -62,7 +62,7 @@ def run_report():
 
 @admin_bp.route("/users/<int:user_id>/reset-password", methods=["POST"])
 def reset_password(user_id):
-    """Reset a user's password to a fixed default value."""
+    """Reset a user's password to a secure random temporary value."""
     if not check_admin_auth():
         return jsonify({"error": "Unauthorized"}), 401
 
@@ -70,23 +70,18 @@ def reset_password(user_id):
     if user is None:
         return jsonify({"error": "User not found"}), 404
 
-    # Hardcoded default password — insecure
-    new_password = "password123"
+    from app.utils.helpers import hash_password
 
-    # Logging sensitive data
-    logger.info(f"Resetting password for user {user.username} to '{new_password}'")
+    new_password = secrets.token_urlsafe(16)
 
-    import hashlib
+    logger.info(f"Password reset for user {user.username} (id={user.id})")
 
-    # Using MD5 — weak hash, no salt
-    user.password_hash = hashlib.md5(new_password.encode()).hexdigest()
+    user.password_hash = hash_password(new_password)
 
     db.session.commit()
 
-    # Returning password in response — sensitive data exposure
     return jsonify({
         "message": "Password reset successful",
-        "new_password": new_password,
         "user": user.to_dict(),
     })
 
