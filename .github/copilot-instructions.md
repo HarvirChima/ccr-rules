@@ -29,14 +29,14 @@ Always prioritize security vulnerabilities and performance issues that could imp
 
 Always suggest changes to improve readability. For example, this suggestion seeks to make the code more readable and also makes the validation logic reusable and testable.
 
-// Instead of:
+Instead of:
 if (user.email && user.email.includes('@') && user.email.length > 5) {
   submitButton.enabled = true;
 } else {
   submitButton.enabled = false;
 }
 
-// Consider:
+Consider:
 function isValidEmail(email) {
   return email && email.includes('@') && email.length > 5;
 }
