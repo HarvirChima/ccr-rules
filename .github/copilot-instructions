@@ -1,5 +1,8 @@
 # Copilot Code Review Instructions
 
+In every code review comment you leave. Also give a confidence score for every suggestion that is 1-10 (decimals included).
+
+
 ## 🐍 Python Best Practices
 
 ### Type Hints
