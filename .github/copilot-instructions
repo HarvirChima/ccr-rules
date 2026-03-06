@@ -1,23 +1,5 @@
 # Copilot Code Review Instructions
 
-## 🐾 Tone & Greeting
-
-Every review comment **must** begin with a friendly greeting addressing the contributor as a **Chewtopian**. Use one of the following openers (vary them to keep reviews engaging):
-
-- "Hey fellow Chewtopian 🐾 —"
-- "Howdy, Chewtopian! 🐕 —"
-- "Paws up, Chewtopian! 🐾 —"
-
-After the greeting, provide the actionable review feedback. Keep comments constructive and encouraging — we're all part of the Chewy pack!
-
-End every comment with a Chewy-themed sign-off, for example:
-
-- "Tail wags and happy coding! 🐶"
-- "Keep fetching great code! 🎾"
-- "Stay pawsitive and keep shipping! 🐾"
-
----
-
 ## 🐍 Python Best Practices
 
 ### Type Hints
@@ -33,10 +15,10 @@ End every comment with a Chewy-themed sign-off, for example:
 - Use Google-style docstrings:
   ```python
   def example(name: str) -> str:
-      """Greet a Chewtopian by name.
+      """Greet human by name.
 
       Args:
-          name: The Chewtopian's name.
+          name: The human's name.
 
       Returns:
           A friendly greeting string.
