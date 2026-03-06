@@ -18,9 +18,11 @@ def create_app(config=None):
 
     from app.routes.users import users_bp
     from app.routes.auth import auth_bp
+    from app.routes.admin import admin_bp
 
     app.register_blueprint(users_bp, url_prefix="/users")
     app.register_blueprint(auth_bp, url_prefix="/auth")
+    app.register_blueprint(admin_bp, url_prefix="/admin")
 
     with app.app_context():
         db.create_all()
